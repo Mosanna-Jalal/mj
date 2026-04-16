@@ -1,0 +1,373 @@
+'use client'
+import { useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
+
+const studios = [
+  {
+    name: 'MJX Web Studio',
+    tag: 'Web Development',
+    desc: 'Full-stack web solutions — MERN, React, AI integrations, and modern web experiences.',
+    icon: '🌐',
+    color: '#4a9eff',
+  },
+  {
+    name: 'MJX Cinematix Studio',
+    tag: 'Cinematography',
+    desc: 'Visual storytelling through cinematic frames, lighting craft, and post-production.',
+    icon: '🎬',
+    color: '#c084fc',
+  },
+]
+
+const socials = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/Mosanna-Jalal',
+    icon: FaGithub,
+    color: '#f0f0f0',
+    hoverColor: '#ffffff',
+    bg: 'rgba(240,240,240,0.07)',
+    hoverBg: 'rgba(240,240,240,0.14)',
+    handle: '@Mosanna-Jalal',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/mosanna-jalal-2a1a931aa/',
+    icon: FaLinkedinIn,
+    color: '#0a8fd0',
+    hoverColor: '#29aff7',
+    bg: 'rgba(10,143,208,0.08)',
+    hoverBg: 'rgba(10,143,208,0.18)',
+    handle: 'Mosanna Jalal',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/theycallme_mj__/',
+    icon: FaInstagram,
+    color: '#e1306c',
+    hoverColor: '#f06292',
+    bg: 'rgba(225,48,108,0.08)',
+    hoverBg: 'rgba(225,48,108,0.18)',
+    handle: '@theycallme_mj__',
+  },
+  {
+    label: 'X / Twitter',
+    href: 'https://x.com/JalalMosanna',
+    icon: FaXTwitter,
+    color: '#f0f0f0',
+    hoverColor: '#ffffff',
+    bg: 'rgba(240,240,240,0.07)',
+    hoverBg: 'rgba(240,240,240,0.14)',
+    handle: '@JalalMosanna',
+  },
+  {
+    label: 'WhatsApp',
+    href: 'https://wa.me/919065401524',
+    icon: FaWhatsapp,
+    color: '#25d366',
+    hoverColor: '#4fe882',
+    bg: 'rgba(37,211,102,0.08)',
+    hoverBg: 'rgba(37,211,102,0.18)',
+    handle: '+91 90654 01524',
+  },
+]
+
+export default function Footer() {
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const [copied, setCopied] = useState(false)
+  const [hoveredSocial, setHoveredSocial] = useState<string | null>(null)
+
+  const email = 'mjiraqui322@gmail.com'
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(email).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <footer
+      id="contact"
+      ref={ref}
+      className="relative py-24 px-6 overflow-hidden"
+      style={{ background: 'var(--bg-2)' }}
+    >
+      {/* Top border */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent)',
+        }}
+      />
+
+      {/* Glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-64 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(212,175,55,0.05) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="max-w-5xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          {/* ── Header ── */}
+          <div className="text-center mb-14">
+            <p className="section-label mb-4">08 / Contact</p>
+            <h2 className="font-display text-4xl md:text-6xl font-black tracking-wide mb-6">
+              Let&apos;s <span className="gold-shimmer">Connect</span>
+            </h2>
+            <p
+              className="text-sm leading-8 max-w-md mx-auto"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Whether you want to collaborate on a project, discuss AI integration,
+              or just exchange ideas over virtual chai — reach out anywhere below.
+            </p>
+          </div>
+
+          {/* ── Social Links ── */}
+          <motion.div
+            className="mb-14"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            <p
+              className="text-center text-[10px] tracking-[0.3em] uppercase mb-6"
+              style={{ color: 'var(--text-dim)' }}
+            >
+              Find me on
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-3">
+              {socials.map((s, i) => {
+                const Icon = s.icon
+                const isHovered = hoveredSocial === s.label
+                return (
+                  <motion.a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.25 + i * 0.07 }}
+                    onMouseEnter={() => setHoveredSocial(s.label)}
+                    onMouseLeave={() => setHoveredSocial(null)}
+                    className="flex items-center gap-3 px-5 py-3 transition-all duration-300"
+                    style={{
+                      background: isHovered ? s.hoverBg : s.bg,
+                      border: `1px solid ${isHovered ? s.color + '70' : s.color + '25'}`,
+                      borderRadius: '4px',
+                      textDecoration: 'none',
+                      transform: isHovered ? 'translateY(-3px)' : 'none',
+                      boxShadow: isHovered ? `0 6px 24px ${s.color}20` : 'none',
+                    }}
+                  >
+                    {/* Icon circle */}
+                    <div
+                      className="flex items-center justify-center rounded-full flex-shrink-0"
+                      style={{
+                        width: '34px',
+                        height: '34px',
+                        background: isHovered ? s.hoverBg : `${s.color}15`,
+                        border: `1px solid ${s.color}30`,
+                        color: isHovered ? s.hoverColor : s.color,
+                        transition: 'all 0.3s ease',
+                      }}
+                    >
+                      <Icon size={16} />
+                    </div>
+
+                    {/* Text */}
+                    <div className="text-left">
+                      <p
+                        className="text-[10px] tracking-[0.15em] uppercase font-semibold leading-none mb-0.5"
+                        style={{
+                          color: isHovered ? s.hoverColor : s.color,
+                          transition: 'color 0.3s',
+                        }}
+                      >
+                        {s.label}
+                      </p>
+                      <p
+                        className="text-xs leading-none font-mono"
+                        style={{ color: 'var(--text-muted)' }}
+                      >
+                        {s.handle}
+                      </p>
+                    </div>
+                  </motion.a>
+                )
+              })}
+            </div>
+          </motion.div>
+
+          {/* ── MJX Studios ── */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.45 }}
+          >
+            {studios.map((s) => (
+              <div
+                key={s.name}
+                className="relative overflow-hidden p-6"
+                style={{
+                  background: `${s.color}06`,
+                  border: `1px solid ${s.color}25`,
+                  transition: 'border-color 0.3s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = `${s.color}60`)}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = `${s.color}25`)}
+              >
+                <div
+                  className="absolute top-0 left-0 right-0 h-px"
+                  style={{ background: `linear-gradient(90deg, ${s.color}80, transparent)` }}
+                />
+                <div className="flex items-start gap-4">
+                  <div
+                    className="w-11 h-11 flex items-center justify-center text-xl flex-shrink-0 rounded"
+                    style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}
+                  >
+                    {s.icon}
+                  </div>
+                  <div>
+                    <p
+                      className="text-[10px] tracking-[0.25em] uppercase mb-1 font-medium"
+                      style={{ color: s.color }}
+                    >
+                      {s.tag}
+                    </p>
+                    <h3
+                      className="font-display font-bold text-base tracking-wide mb-1"
+                      style={{ color: 'var(--text)' }}
+                    >
+                      {s.name}
+                    </h3>
+                    <p className="text-xs leading-5" style={{ color: 'var(--text-muted)' }}>
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* ── Email CTA ── */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.55 }}
+          >
+            <a
+              href={`mailto:${email}`}
+              className="px-8 py-3.5 font-semibold tracking-[0.12em] text-xs uppercase transition-all duration-300 hover:scale-105"
+              style={{
+                background: 'var(--gold)',
+                color: '#000',
+                boxShadow: '0 0 30px rgba(212,175,55,0.25)',
+              }}
+            >
+              Send an Email
+            </a>
+            <button
+              onClick={copyEmail}
+              className="px-8 py-3.5 font-semibold tracking-[0.12em] text-xs uppercase transition-all duration-300"
+              style={{
+                border: '1px solid rgba(212,175,55,0.4)',
+                color: copied ? 'var(--gold-light)' : 'var(--text-muted)',
+                background: copied ? 'rgba(212,175,55,0.08)' : 'transparent',
+              }}
+            >
+              {copied ? '✓ Copied!' : 'Copy Email'}
+            </button>
+          </motion.div>
+
+          <p
+            className="text-center font-mono text-sm tracking-wider mb-14"
+            style={{ color: 'rgba(212,175,55,0.45)' }}
+          >
+            {email}
+          </p>
+
+          {/* ── Divider ── */}
+          <div className="section-divider mb-10" />
+
+          {/* ── Bottom bar ── */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+            <div className="font-display text-2xl font-black tracking-[0.15em]">
+              MJ<span style={{ color: 'var(--gold)' }}>.</span>
+            </div>
+
+            {/* Icon row (small, bottom) */}
+            <div className="flex items-center gap-3">
+              {socials.map((s) => {
+                const Icon = s.icon
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={s.label}
+                    className="flex items-center justify-center rounded-full transition-all duration-300"
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      background: `${s.color}10`,
+                      border: `1px solid ${s.color}25`,
+                      color: s.color,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = s.hoverBg
+                      e.currentTarget.style.borderColor = `${s.color}70`
+                      e.currentTarget.style.transform = 'translateY(-2px)'
+                      e.currentTarget.style.color = s.hoverColor
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = `${s.color}10`
+                      e.currentTarget.style.borderColor = `${s.color}25`
+                      e.currentTarget.style.transform = 'none'
+                      e.currentTarget.style.color = s.color
+                    }}
+                  >
+                    <Icon size={13} />
+                  </a>
+                )
+              })}
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: '#4a9eff60' }}>
+                MJX Web Studio
+              </span>
+              <span style={{ color: 'var(--text-dim)' }}>·</span>
+              <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: '#c084fc60' }}>
+                MJX Cinematix Studio
+              </span>
+            </div>
+          </div>
+
+          <p className="text-center text-xs mt-6" style={{ color: 'var(--text-dim)' }}>
+            © 2025 · Mosanna Jalal · Gaya, India
+          </p>
+          <p className="text-center text-[10px] mt-2 tracking-[0.15em]" style={{ color: 'var(--text-dim)' }}>
+            Designed &amp; Developed by{' '}
+            <span style={{ color: 'rgba(212,175,55,0.5)' }}>Mosanna Jalal</span>
+          </p>
+        </motion.div>
+      </div>
+    </footer>
+  )
+}
