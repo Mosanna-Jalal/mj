@@ -10,6 +10,7 @@ import Photography from './components/Photography'
 import BeyondCode from './components/BeyondCode'
 import Gratitude from './components/Gratitude'
 import Footer from './components/Footer'
+import MusicPlayer from './components/MusicPlayer'
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
       <BeyondCode />
       <Gratitude />
       <Footer />
+      <MusicPlayer />
     </main>
   )
 }

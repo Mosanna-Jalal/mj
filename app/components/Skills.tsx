@@ -5,32 +5,32 @@ import { motion, useInView } from 'framer-motion'
 const categories = [
   {
     label: 'Frontend',
-    color: '#4a9eff',
+    color: 'rgba(239,239,239,0.75)',
     skills: ['React.js', 'Next.js', 'JavaScript (ES6+)', 'TypeScript', 'HTML5 / CSS3', 'Redux', 'WordPress / Gutenberg', 'Tailwind CSS'],
   },
   {
     label: 'Backend',
-    color: '#3cb371',
+    color: 'rgba(239,239,239,0.55)',
     skills: ['Node.js', 'Express.js', 'PHP', 'Java', 'C', 'REST APIs'],
   },
   {
     label: 'Database',
-    color: '#f0a500',
+    color: 'rgba(239,239,239,0.65)',
     skills: ['MongoDB', 'Mongoose ODM', 'MySQL (basics)', 'Firebase (basics)'],
   },
   {
     label: 'AI & Emerging',
-    color: '#c084fc',
+    color: 'rgba(239,239,239,0.75)',
     skills: ['OpenAI APIs', 'Prompt Engineering', 'Claude AI', 'Generative AI Tools', 'LLM Integration'],
   },
   {
     label: 'Tools & DevOps',
-    color: '#fb7185',
+    color: 'rgba(239,239,239,0.55)',
     skills: ['Linux / Bash', 'Git & GitHub', 'VS Code', 'Postman', 'npm / Yarn', 'Webpack'],
   },
   {
     label: 'Soft Stack',
-    color: 'var(--gold)',
+    color: 'rgba(239,239,239,0.4)',
     skills: ['System Design (basics)', 'Agile / Scrum', 'Technical Debugging', 'Code Review', 'Team Mentoring'],
   },
 ]
@@ -65,7 +65,7 @@ export default function Skills() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
         >
-          The <span className="gold-shimmer">Arsenal</span>
+          Skills &amp; Tools
         </motion.h2>
         <motion.p
           className="text-sm leading-7 max-w-xl mb-14"
@@ -74,8 +74,7 @@ export default function Skills() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
         >
-          A decade of hands-on experience across the full stack — from logic gates
-          in C to AI-powered products in React.
+          Technologies I&apos;ve worked with over the years, across different projects and roles.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
 const studios = [
@@ -9,15 +9,15 @@ const studios = [
     name: 'MJX Web Studio',
     tag: 'Web Development',
     desc: 'Full-stack web solutions — MERN, React, AI integrations, and modern web experiences.',
-    icon: '🌐',
-    color: '#4a9eff',
+    abbr: 'WEB',
+    color: 'rgba(212,175,55,0.8)',
   },
   {
     name: 'MJX Cinematix Studio',
     tag: 'Cinematography',
     desc: 'Visual storytelling through cinematic frames, lighting craft, and post-production.',
-    icon: '🎬',
-    color: '#c084fc',
+    abbr: 'LENS',
+    color: 'rgba(240,240,240,0.55)',
   },
 ]
 
@@ -62,16 +62,6 @@ const socials = [
     hoverBg: 'rgba(240,240,240,0.14)',
     handle: '@JalalMosanna',
   },
-  {
-    label: 'WhatsApp',
-    href: 'https://wa.me/919065401524',
-    icon: FaWhatsapp,
-    color: '#25d366',
-    hoverColor: '#4fe882',
-    bg: 'rgba(37,211,102,0.08)',
-    hoverBg: 'rgba(37,211,102,0.18)',
-    handle: '+91 90654 01524',
-  },
 ]
 
 export default function Footer() {
@@ -94,7 +84,7 @@ export default function Footer() {
       id="contact"
       ref={ref}
       className="relative py-24 px-6 overflow-hidden"
-      style={{ background: 'var(--bg-2)' }}
+      style={{ background: 'var(--bg-3)' }}
     >
       {/* Top border */}
       <div
@@ -122,14 +112,13 @@ export default function Footer() {
           <div className="text-center mb-14">
             <p className="section-label mb-4">08 / Contact</p>
             <h2 className="font-display text-4xl md:text-6xl font-black tracking-wide mb-6">
-              Let&apos;s <span className="gold-shimmer">Connect</span>
+              Get in Touch
             </h2>
             <p
               className="text-sm leading-8 max-w-md mx-auto"
               style={{ color: 'var(--text-muted)' }}
             >
-              Whether you want to collaborate on a project, discuss AI integration,
-              or just exchange ideas over virtual chai — reach out anywhere below.
+              If you have a project in mind or just want to say hello, feel free to reach out.
             </p>
           </div>
 
@@ -236,10 +225,10 @@ export default function Footer() {
                 />
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-11 h-11 flex items-center justify-center text-xl flex-shrink-0 rounded"
-                    style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}
+                    className="w-11 h-11 flex items-center justify-center flex-shrink-0 rounded font-mono font-bold"
+                    style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${s.color}40`, color: s.color, fontSize: '0.6rem', letterSpacing: '0.15em' }}
                   >
-                    {s.icon}
+                    {s.abbr}
                   </div>
                   <div>
                     <p

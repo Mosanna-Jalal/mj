@@ -11,6 +11,7 @@ const stats = [
 ]
 
 const allPics = [
+  '/photos/My%20Pics/u%20my%20pic%20mj.jpg',
   '/photos/My%20Pics/theycallme_mj___20250323_8.jpg',
   '/photos/My%20Pics/IMG-20241006-WA0057.jpg',
   '/photos/My%20Pics/IMG-20241006-WA0055.jpg',
@@ -18,7 +19,6 @@ const allPics = [
   '/photos/My%20Pics/IMG_20220629_204720.jpg',
   '/photos/My%20Pics/IMG_20221102_074925.jpg',
   '/photos/My%20Pics/IMG_20210405_205629.jpg',
-  '/photos/My%20Pics/Snapchat-186385685.jpg',
   '/photos/My%20Pics/image.png',
   '/photos/My%20Pics/Gemini_Generated_Image_8cwnl98cwnl98cwn.png',
 ]
@@ -32,9 +32,10 @@ function PhotoSlideshow() {
 
   useEffect(() => {
     if (paused) return
-    const id = setInterval(next, 3800)
-    return () => clearInterval(id)
-  }, [paused, next])
+    const delay = index === 0 ? 9000 : 1900
+    const id = setTimeout(next, delay)
+    return () => clearTimeout(id)
+  }, [paused, index, next])
 
   return (
     <div
@@ -91,10 +92,10 @@ function PhotoSlideshow() {
         />
 
         {/* Gold corner accents */}
-        <div className="absolute top-0 left-0 w-7 h-7 border-t-2 border-l-2 z-20" style={{ borderColor: 'var(--gold)' }} />
-        <div className="absolute top-0 right-0 w-7 h-7 border-t-2 border-r-2 z-20" style={{ borderColor: 'var(--gold)' }} />
-        <div className="absolute bottom-0 left-0 w-7 h-7 border-b-2 border-l-2 z-20" style={{ borderColor: 'var(--gold)' }} />
-        <div className="absolute bottom-0 right-0 w-7 h-7 border-b-2 border-r-2 z-20" style={{ borderColor: 'var(--gold)' }} />
+        <div className="absolute top-0 left-0 w-7 h-7 border-t-2 border-l-2 z-20" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />
+        <div className="absolute top-0 right-0 w-7 h-7 border-t-2 border-r-2 z-20" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />
+        <div className="absolute bottom-0 left-0 w-7 h-7 border-b-2 border-l-2 z-20" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />
+        <div className="absolute bottom-0 right-0 w-7 h-7 border-b-2 border-r-2 z-20" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />
 
         {/* Watermark bottom-left */}
         <div className="absolute bottom-5 left-5 z-20">
@@ -144,10 +145,10 @@ function PhotoSlideshow() {
         <motion.div
           key={`progress-${index}`}
           className="absolute bottom-0 left-0 h-[2px] z-30"
-          style={{ background: 'var(--gold)', boxShadow: '0 0 6px rgba(212,175,55,0.6)' }}
+          style={{ background: 'rgba(255,255,255,0.5)' }}
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
-          transition={{ duration: 3.8, ease: 'linear' }}
+          transition={{ duration: index === 0 ? 9 : 1.9, ease: 'linear' }}
         />
       )}
     </div>
@@ -180,16 +181,11 @@ export default function About() {
           <p className="section-label mb-3">01 / About Me</p>
           <h2
             className="font-display text-4xl md:text-5xl font-bold tracking-wide"
-            style={{
-              background: 'linear-gradient(90deg, #f0f0f0 0%, var(--gold-light) 60%, var(--gold-dark) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            style={{ color: 'var(--text)' }}
           >
-            The Man Behind
+            A Bit About
             <br />
-            The Code
+            Me
           </h2>
         </motion.div>
 
@@ -200,7 +196,7 @@ export default function About() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="space-y-5 text-base leading-8" style={{ color: 'rgba(240,240,240,0.75)' }}>
+            <div className="space-y-5 text-base leading-8" style={{ color: 'var(--text-secondary)' }}>
               <p>
                 I&apos;m <span style={{ color: 'var(--gold)' }} className="font-semibold">Mosanna Jalal</span> —
                 a full-stack developer from Gaya, Bihar, whose journey began with the
@@ -238,11 +234,10 @@ export default function About() {
                 <span style={{ color: 'var(--text)' }}>GBM College, Gaya</span>.
               </p>
               <p>
-                But code is only one layer. I write{' '}
-                <span style={{ color: 'var(--gold)' }}>poetry</span>, research{' '}
-                <span style={{ color: 'var(--gold)' }}>psychology</span>, study diet science,
-                and shoot cinematic frames. I am, in every sense,
-                a multidimensional human being.
+                Outside of work I write{' '}
+                <span style={{ color: 'var(--gold)' }}>poetry</span>, read about{' '}
+                <span style={{ color: 'var(--gold)' }}>psychology</span>, study nutrition,
+                and occasionally shoot with a camera.
               </p>
             </div>
 
