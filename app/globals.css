@@ -295,6 +295,44 @@ body {
 }
 .gold-underline:hover::after { width: 100%; }
 
+/* ===== CONFIDENTIAL / SCREENSHOT PROTECTION ===== */
+/* Applied to <body> only while the confidential page is mounted */
+body.confidential-lock {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Block Ctrl/Cmd+P and OS "print/save as PDF" from capturing the document */
+@media print {
+  body.confidential-lock * {
+    visibility: hidden !important;
+  }
+  body.confidential-lock::after {
+    content: "🔒  This document is confidential and cannot be printed or exported.";
+    visibility: visible;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    font-size: 18px;
+    font-family: Georgia, serif;
+    color: #6e1423;
+    background: #fff;
+  }
+}
+
+@keyframes confidential-warn {
+  0% { opacity: 0; transform: translate(-50%, 12px); }
+  12% { opacity: 1; transform: translate(-50%, 0); }
+  88% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 12px); }
+}
+
 /* ===== THEME TOGGLE ===== */
 .theme-toggle {
   display: flex;

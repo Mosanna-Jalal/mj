@@ -1,22 +1,24 @@
 'use client'
 import { useRef, useState } from 'react'
+import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
-import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaInstagram, FaCode, FaFilm } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import { LuLock } from 'react-icons/lu'
 
 const studios = [
   {
     name: 'MJX Web Studio',
     tag: 'Web Development',
     desc: 'Full-stack web solutions — MERN, React, AI integrations, and modern web experiences.',
-    abbr: 'WEB',
+    icon: FaCode,
     color: 'rgba(212,175,55,0.8)',
   },
   {
     name: 'MJX Cinematix Studio',
     tag: 'Cinematography',
     desc: 'Visual storytelling through cinematic frames, lighting craft, and post-production.',
-    abbr: 'LENS',
+    icon: FaFilm,
     color: 'rgba(240,240,240,0.55)',
   },
 ]
@@ -207,7 +209,9 @@ export default function Footer() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.45 }}
           >
-            {studios.map((s) => (
+            {studios.map((s) => {
+              const StudioIcon = s.icon
+              return (
               <div
                 key={s.name}
                 className="relative overflow-hidden p-6"
@@ -225,10 +229,10 @@ export default function Footer() {
                 />
                 <div className="flex items-start gap-4">
                   <div
-                    className="w-11 h-11 flex items-center justify-center flex-shrink-0 rounded font-mono font-bold"
-                    style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${s.color}40`, color: s.color, fontSize: '0.6rem', letterSpacing: '0.15em' }}
+                    className="w-11 h-11 flex items-center justify-center flex-shrink-0 rounded"
+                    style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${s.color}40`, color: s.color }}
                   >
-                    {s.abbr}
+                    <StudioIcon size={18} />
                   </div>
                   <div>
                     <p
@@ -249,7 +253,8 @@ export default function Footer() {
                   </div>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </motion.div>
 
           {/* ── Email CTA ── */}
@@ -299,43 +304,32 @@ export default function Footer() {
               MJ<span style={{ color: 'var(--gold)' }}>.</span>
             </div>
 
-            {/* Icon row (small, bottom) */}
-            <div className="flex items-center gap-3">
-              {socials.map((s) => {
-                const Icon = s.icon
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={s.label}
-                    className="flex items-center justify-center rounded-full transition-all duration-300"
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      background: `${s.color}10`,
-                      border: `1px solid ${s.color}25`,
-                      color: s.color,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = s.hoverBg
-                      e.currentTarget.style.borderColor = `${s.color}70`
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.color = s.hoverColor
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = `${s.color}10`
-                      e.currentTarget.style.borderColor = `${s.color}25`
-                      e.currentTarget.style.transform = 'none'
-                      e.currentTarget.style.color = s.color
-                    }}
-                  >
-                    <Icon size={13} />
-                  </a>
-                )
-              })}
-            </div>
+            {/* Confidential Area */}
+            <Link
+              href="/confidential"
+              className="group inline-flex items-center gap-2.5 px-5 py-2.5 transition-all duration-300"
+              style={{
+                border: '1px solid rgba(212,175,55,0.3)',
+                borderRadius: 4,
+                color: 'var(--text-muted)',
+                background: 'rgba(212,175,55,0.04)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212,175,55,0.6)'
+                e.currentTarget.style.background = 'rgba(212,175,55,0.1)'
+                e.currentTarget.style.color = 'var(--gold)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)'
+                e.currentTarget.style.background = 'rgba(212,175,55,0.04)'
+                e.currentTarget.style.color = 'var(--text-muted)'
+              }}
+            >
+              <LuLock size={13} style={{ color: 'var(--gold)' }} />
+              <span className="text-[11px] tracking-[0.2em] uppercase font-semibold">
+                Confidential Area
+              </span>
+            </Link>
 
             <div className="flex items-center gap-4">
               <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: '#4a9eff60' }}>

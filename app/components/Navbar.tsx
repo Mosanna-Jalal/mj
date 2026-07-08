@@ -1,7 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LuSun, LuMoon } from 'react-icons/lu'
+import { LuSun, LuMoon, LuLock } from 'react-icons/lu'
 import { useTheme } from './ThemeProvider'
 
 const links = [
@@ -71,6 +72,17 @@ export default function Navbar() {
                 {link.label}
               </button>
             ))}
+
+            {/* Confidential Area */}
+            <Link
+              href="/confidential"
+              className="flex items-center gap-1.5 text-xs tracking-[0.15em] uppercase transition-colors duration-300"
+              style={{ color: 'var(--gold)' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--gold)')}
+            >
+              <LuLock size={12} /> Confidential
+            </Link>
 
             {/* Theme toggle */}
             <button
@@ -162,6 +174,16 @@ export default function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
+
+              {/* Confidential Area */}
+              <Link
+                href="/confidential"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2 text-left text-sm tracking-[0.18em] uppercase py-2 mt-1"
+                style={{ color: 'var(--gold)', borderTop: '1px solid var(--border)' }}
+              >
+                <LuLock size={13} /> Confidential Area
+              </Link>
             </div>
           </motion.div>
         )}
