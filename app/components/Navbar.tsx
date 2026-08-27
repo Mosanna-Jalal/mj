@@ -151,7 +151,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.22 }}
-            className="fixed top-16 left-0 right-0 z-40"
+            className="mobile-menu-panel fixed top-16 left-0 right-0 z-40"
             style={{
               background: 'var(--bg-2)',
               borderBottom: '1px solid var(--border)',

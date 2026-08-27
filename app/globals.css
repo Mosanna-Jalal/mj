@@ -353,3 +353,13 @@ body.confidential-lock {
   color: var(--text);
   background: var(--surface-hover);
 }
+
+/* ===== MOBILE NAV PANEL ===== */
+/* Keep the panel inside the viewport below the 4rem navbar so the last
+   items (Contact, Confidential Area) stay reachable on short screens. */
+.mobile-menu-panel {
+  max-height: calc(100vh - 4rem);
+  max-height: calc(100dvh - 4rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
