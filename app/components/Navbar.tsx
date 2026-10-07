@@ -58,8 +58,9 @@ export default function Navbar() {
             MJ<span style={{ color: 'var(--gold)' }}>.</span>
           </button>
 
-          {/* Desktop Links + Toggle */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Links + Toggle — lg+, the row needs ~920px so at md it overflowed
+              and pushed Confidential + the theme toggle off-screen on tablets */}
+          <div className="hidden lg:flex items-center gap-8">
             {links.map((link) => (
               <button
                 key={link.href}
@@ -106,7 +107,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: toggle + hamburger */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="lg:hidden flex items-center gap-3">
             <button
               onClick={toggle}
               className="theme-toggle"
@@ -175,12 +176,13 @@ export default function Navbar() {
                 </motion.button>
               ))}
 
-              {/* Confidential Area */}
+              {/* Confidential Area — sticky so it stays in view when the list
+                  has to scroll on short (landscape) screens */}
               <Link
                 href="/confidential"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-2 text-left text-sm tracking-[0.18em] uppercase py-2 mt-1"
-                style={{ color: 'var(--gold)', borderTop: '1px solid var(--border)' }}
+                className="sticky bottom-0 flex items-center gap-2 text-left text-sm tracking-[0.18em] uppercase py-2 mt-1"
+                style={{ color: 'var(--gold)', background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}
               >
                 <LuLock size={13} /> Confidential Area
               </Link>

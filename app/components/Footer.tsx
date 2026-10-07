@@ -1,10 +1,10 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { FaGithub, FaLinkedinIn, FaInstagram, FaCode, FaFilm } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import { LuLock } from 'react-icons/lu'
+import { LuLock, LuArrowUpRight } from 'react-icons/lu'
 
 const studios = [
   {
@@ -23,45 +23,38 @@ const studios = [
   },
 ]
 
+/* brand: accent for the ring / glow / hover tint · iconBg: the glossy badge fill */
 const socials = [
   {
     label: 'GitHub',
     href: 'https://github.com/Mosanna-Jalal',
     icon: FaGithub,
-    color: '#f0f0f0',
-    hoverColor: '#ffffff',
-    bg: 'rgba(240,240,240,0.07)',
-    hoverBg: 'rgba(240,240,240,0.14)',
+    brand: '#a371f7',
+    iconBg: 'linear-gradient(145deg, #3d444d 0%, #161b22 55%, #0d1117 100%)',
     handle: '@Mosanna-Jalal',
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/mosanna-jalal-2a1a931aa/',
     icon: FaLinkedinIn,
-    color: '#0a8fd0',
-    hoverColor: '#29aff7',
-    bg: 'rgba(10,143,208,0.08)',
-    hoverBg: 'rgba(10,143,208,0.18)',
+    brand: '#0a66c2',
+    iconBg: 'linear-gradient(145deg, #2a8ff0 0%, #0a66c2 50%, #004182 100%)',
     handle: 'Mosanna Jalal',
   },
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/theycallme_mj__/',
     icon: FaInstagram,
-    color: '#e1306c',
-    hoverColor: '#f06292',
-    bg: 'rgba(225,48,108,0.08)',
-    hoverBg: 'rgba(225,48,108,0.18)',
+    brand: '#e1306c',
+    iconBg: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%)',
     handle: '@theycallme_mj__',
   },
   {
     label: 'X / Twitter',
     href: 'https://x.com/JalalMosanna',
     icon: FaXTwitter,
-    color: '#f0f0f0',
-    hoverColor: '#ffffff',
-    bg: 'rgba(240,240,240,0.07)',
-    hoverBg: 'rgba(240,240,240,0.14)',
+    brand: '#1d9bf0',
+    iconBg: 'linear-gradient(145deg, #2f3336 0%, #0f1419 55%, #000000 100%)',
     handle: '@JalalMosanna',
   },
 ]
@@ -70,7 +63,6 @@ export default function Footer() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const [copied, setCopied] = useState(false)
-  const [hoveredSocial, setHoveredSocial] = useState<string | null>(null)
 
   const email = 'mjiraqui322@gmail.com'
 
@@ -138,65 +130,43 @@ export default function Footer() {
               Find me on
             </p>
 
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
               {socials.map((s, i) => {
                 const Icon = s.icon
-                const isHovered = hoveredSocial === s.label
                 return (
-                  <motion.a
+                  /* entrance motion lives on the wrapper so it never fights the CSS hover transform */
+                  <motion.div
                     key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 16 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.25 + i * 0.07 }}
-                    onMouseEnter={() => setHoveredSocial(s.label)}
-                    onMouseLeave={() => setHoveredSocial(null)}
-                    className="flex items-center gap-3 px-5 py-3 transition-all duration-300"
-                    style={{
-                      background: isHovered ? s.hoverBg : s.bg,
-                      border: `1px solid ${isHovered ? s.color + '70' : s.color + '25'}`,
-                      borderRadius: '4px',
-                      textDecoration: 'none',
-                      transform: isHovered ? 'translateY(-3px)' : 'none',
-                      boxShadow: isHovered ? `0 6px 24px ${s.color}20` : 'none',
-                    }}
                   >
-                    {/* Icon circle */}
-                    <div
-                      className="flex items-center justify-center rounded-full flex-shrink-0"
-                      style={{
-                        width: '34px',
-                        height: '34px',
-                        background: isHovered ? s.hoverBg : `${s.color}15`,
-                        border: `1px solid ${s.color}30`,
-                        color: isHovered ? s.hoverColor : s.color,
-                        transition: 'all 0.3s ease',
-                      }}
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-card"
+                      style={{ '--brand': s.brand, '--brand-bg': s.iconBg } as CSSProperties}
                     >
-                      <Icon size={16} />
-                    </div>
+                      <LuArrowUpRight className="social-card-arrow" size={14} aria-hidden />
 
-                    {/* Text */}
-                    <div className="text-left">
-                      <p
-                        className="text-[10px] tracking-[0.15em] uppercase font-semibold leading-none mb-0.5"
-                        style={{
-                          color: isHovered ? s.hoverColor : s.color,
-                          transition: 'color 0.3s',
-                        }}
-                      >
-                        {s.label}
-                      </p>
-                      <p
-                        className="text-xs leading-none font-mono"
-                        style={{ color: 'var(--text-muted)' }}
-                      >
-                        {s.handle}
-                      </p>
-                    </div>
-                  </motion.a>
+                      <span className="social-icon">
+                        <Icon size={24} />
+                      </span>
+
+                      <span className="block w-full text-center">
+                        <span className="social-label block text-[11px] tracking-[0.2em] uppercase font-semibold">
+                          {s.label}
+                        </span>
+                        <span
+                          className="block text-[11px] font-mono mt-1 truncate"
+                          style={{ color: 'var(--text-muted)' }}
+                        >
+                          {s.handle}
+                        </span>
+                      </span>
+                    </a>
+                  </motion.div>
                 )
               })}
             </div>

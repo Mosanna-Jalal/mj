@@ -354,6 +354,130 @@ body.confidential-lock {
   background: var(--surface-hover);
 }
 
+/* ===== SOCIAL CARDS (footer) ===== */
+/* Each card sets --brand (accent) and --brand-bg (badge fill) inline. */
+.social-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  height: 100%;
+  padding: 1.6rem 0.9rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  text-decoration: none;
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* brand-tinted wash that fades in on hover */
+.social-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 85% at 50% 0%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.social-card:active { transform: scale(0.97); }
+.social-card:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.social-label {
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.social-card-arrow {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--text-dim);
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+/* glossy brand badge */
+.social-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--brand-bg);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.25),
+    0 8px 20px -8px color-mix(in srgb, var(--brand) 80%, transparent);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+/* slow-spinning brand ring around the badge */
+.social-icon::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  padding: 1.5px;
+  border-radius: 50%;
+  background: conic-gradient(var(--brand), transparent 30%, var(--brand) 55%, transparent 80%, var(--brand));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0.5;
+  animation: rotate-slow 8s linear infinite;
+  transition: opacity 0.35s ease;
+}
+/* light sweep across the badge on hover */
+.social-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  transition: background-position 0.75s ease;
+  pointer-events: none;
+}
+
+/* hover only on real pointers, so taps on phones don't leave cards stuck "hovered" */
+@media (hover: hover) {
+  .social-card-arrow { opacity: 0; transform: translate(-4px, 4px); }
+  .social-card:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in srgb, var(--brand) 55%, transparent);
+    box-shadow: 0 18px 44px -14px color-mix(in srgb, var(--brand) 60%, transparent);
+  }
+  .social-card:hover::before { opacity: 1; }
+  .social-card:hover .social-label { color: var(--brand); }
+  .social-card:hover .social-card-arrow { opacity: 1; transform: none; color: var(--brand); }
+  .social-card:hover .social-icon {
+    transform: scale(1.1) rotate(-8deg);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -8px 14px rgba(0, 0, 0, 0.25),
+      0 0 0 6px color-mix(in srgb, var(--brand) 12%, transparent),
+      0 12px 30px -6px color-mix(in srgb, var(--brand) 85%, transparent);
+  }
+  .social-card:hover .social-icon::before { opacity: 1; }
+  .social-card:hover .social-icon::after { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-icon::before { animation: none; }
+  .social-card,
+  .social-icon,
+  .social-icon::after { transition: none; }
+}
+
 /* ===== MOBILE NAV PANEL ===== */
 /* Keep the panel inside the viewport below the 4rem navbar so the last
    items (Contact, Confidential Area) stay reachable on short screens. */
